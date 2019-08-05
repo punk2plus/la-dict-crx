@@ -1,8 +1,8 @@
 # ll-dict
 
 > ll-dict for Chrome Extension React.js project效果
-## 安装
-![描述](https://https://github.com/lulinglm/ll-dict/demo.png)
+## 描述
+![描述](https://github.com/lulinglm/ll-dict/blob/master/demo.jpg)
 
 ## 安装
 
