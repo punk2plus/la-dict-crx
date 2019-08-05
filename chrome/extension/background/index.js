@@ -1,0 +1,2 @@
+
+require('../../../src/modules/background');

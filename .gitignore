@@ -1,0 +1,12 @@
+node_modules
+npm-debug.log
+.DS_Store
+
+dist
+
+*.zip
+*.crx
+*.pem
+
+./config/youdao.js
+update.xml
