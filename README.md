@@ -1,6 +1,6 @@
 # ll-dict
 
-> ll-dict for Chrome Extension React.js project效果
+> ll-dict for Chrome Extension React.js
 ## 描述
 ![描述](https://github.com/lulinglm/ll-dict/blob/master/demo.jpg)
 
