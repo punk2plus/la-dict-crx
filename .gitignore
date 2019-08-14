@@ -1,12 +1,22 @@
-node_modules
-npm-debug.log
 .DS_Store
+node_modules
+/dist
+package-lock.json
 
-dist
+# local env files
+.env.local
+.env.*.local
 
-*.zip
-*.crx
-*.pem
+# Log files
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
 
-./config/youdao.js
-update.xml
+# Editor directories and files
+.idea
+.vscode
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
