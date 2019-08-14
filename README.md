@@ -1,4 +1,4 @@
-# ll-dict-vue
+# ll-dict-ce
 
 # keywords
 - vue-cli3

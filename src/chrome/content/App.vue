@@ -1,21 +1,16 @@
 <template>
-    <div class="app-wrap">
-        <el-dialog title="提示" :visible.sync="showTable" width="60%">
-            <comp-table></comp-table>
-            <span slot="footer" class="dialog-footer">
-                <el-button @click="showTable = false">取 消</el-button>
-                <el-button type="primary" @click="handleSubmit">确 定</el-button>
-            </span>
-        </el-dialog>
+    <div class="ll-dict-ce">
+        <DictPanel />
     </div>
 </template>
 
 <script>
-import compTable from './components/table.vue'
+import DictPanel from '../../components/DictPanel'
+
 export default {
     name: 'app',
     components: {
-        compTable
+        DictPanel
     },
     data() {
         return {
@@ -24,7 +19,9 @@ export default {
     },
     methods: {
         toggleTable(status) {
-            this.showTable = status
+            console.log(status)
+            // this.$message('zhegshisdfsdh')
+            // this.showTable = status
         },
         handleSubmit() {
             this.$msgbox.alert('这是一段内容', '标题名称', {
