@@ -1,5 +1,5 @@
 import Vue from 'vue'
-import ElementConfig from '../../config/uiConfig'
+import ElementConfig from '../../../config/uiConfig'
 import App from './App.vue'
 
 Vue.use(ElementConfig)

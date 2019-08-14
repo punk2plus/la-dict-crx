@@ -38,6 +38,9 @@
       "plugin:vue/essential",
       "@vue/prettier"
     ],
+    "globals": {
+      "chrome": true
+    },
     "rules": {
       "no-console": 0
     },

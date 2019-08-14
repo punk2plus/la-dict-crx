@@ -1,12 +1,17 @@
 <template>
     <div class="main_app">
-        <h1>这是点击插件弹出页面</h1>
+        <h1 @click="tab">这是点击插件弹出页面</h1>
     </div>
 </template>
 
 <script>
 export default {
-    name: 'app'
+    name: 'app',
+    methods: {
+        tab() {
+            chrome.tabs.create({ url: '/tab.html' })
+        }
+    }
 }
 </script>
 
