@@ -1,2 +1,2 @@
-import DictPanel from './DictPanel'
-export default DictPanel
+import DictPanel from "./DictPanel";
+export default DictPanel;
