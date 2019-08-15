@@ -14,13 +14,55 @@ export default {
     },
     data() {
         return {
-            showTable: false
+            showTable: false,
+            timer: null
         }
+    },
+    created() {
+        document.documentElement.addEventListener('mouseup', event => {
+            if (event.type === 'selectstart') return
+            // 获取选中内容
+            const selection = window.getSelection && window.getSelection()
+            // 过来为空的情况
+            if (!selection && selection.rangeCount === 0) return
+            const selectText = selection.toString().trim()
+            if (!selectText) return
+
+            if (this.timer) {
+                return
+            }
+
+            console.log('======>>>>', selectText)
+
+            this.timer = setTimeout(() => {
+                window.chrome.runtime.sendMessage(
+                    {
+                        type: 'selectText',
+                        result: {
+                            queryWord: selectText
+                        }
+                    },
+                    data => {
+                        console.log('===返回=>>>', data)
+                        // this.setState({
+                        //     queryResult: data,
+                        //     queryWord: selectText,
+                        //     timer: null
+                        // })
+
+                        clearTimeout(this.timer)
+                        this.timer = null
+                    }
+                )
+            }, 50)
+        })
+        this.$message('zhegshisdfsdh')
+        0
     },
     methods: {
         toggleTable(status) {
             console.log(status)
-            // this.$message('zhegshisdfsdh')
+            this.$message('zhegshisdfsdh')
             // this.showTable = status
         },
         handleSubmit() {

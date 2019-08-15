@@ -9,7 +9,7 @@ export default {
     name: 'app',
     methods: {
         tab() {
-            chrome.tabs.create({ url: '/tab.html' })
+            chrome.tabs.create({ url: '/dictAdmin.html' })
         }
     }
 }
