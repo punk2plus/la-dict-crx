@@ -4,7 +4,7 @@ const path = require('path')
 
 // Generate pages object
 const pagesObj = {}
-const chromeName = ['popup', 'options', 'tab']
+const chromeName = ['popup', 'options', 'dictAdmin', 'background']
 
 chromeName.forEach(name => {
     pagesObj[name] = {
@@ -29,16 +29,16 @@ const manifest =
 const plugins = [new CopyWebpackPlugin([manifest])]
 
 // 开发环境将热加载文件复制到dist文件夹
-if (process.env.NODE_ENV !== 'production') {
-    plugins.push(
-        new CopyWebpackPlugin([
-            {
-                from: path.resolve('src/utils/hot-reload.js'),
-                to: path.resolve('dist')
-            }
-        ])
-    )
-}
+// if (process.env.NODE_ENV !== 'production') {
+//     plugins.push(
+//         new CopyWebpackPlugin([
+//             {
+//                 from: path.resolve('src/utils/hot-reload.js'),
+//                 to: path.resolve('dist')
+//             }
+//         ])
+//     )
+// }
 
 // 生产环境打包dist为zip
 if (process.env.NODE_ENV === 'production') {
