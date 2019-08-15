@@ -1,6 +1,6 @@
 <template>
     <div class="ll-dict-ce">
-        <DictPanel />
+        <DictPanel v-if="queryWord && queryResult" :queryResult="queryResult" :queryWord="queryWord" />
     </div>
 </template>
 
@@ -15,7 +15,9 @@ export default {
     data() {
         return {
             showTable: false,
-            timer: null
+            timer: null,
+            queryResult: null,
+            queryWord: ''
         }
     },
     created() {
@@ -43,12 +45,8 @@ export default {
                         }
                     },
                     data => {
-                        console.log('===返回=>>>', data)
-                        // this.setState({
-                        //     queryResult: data,
-                        //     queryWord: selectText,
-                        //     timer: null
-                        // })
+                        this.queryResult = data
+                        this.queryWord = selectText
 
                         clearTimeout(this.timer)
                         this.timer = null
@@ -56,8 +54,6 @@ export default {
                 )
             }, 50)
         })
-        this.$message('zhegshisdfsdh')
-        0
     },
     methods: {
         toggleTable(status) {

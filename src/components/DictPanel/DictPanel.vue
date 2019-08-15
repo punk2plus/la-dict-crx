@@ -1,16 +1,79 @@
 <template>
     <div class="ll-dict-content">
-        {{ word }}
+        <!-- 查询header -->
+        <div>{{ queryWord }}</div>
+        <!-- 中文含义 -->
+        <div v-if="queryResult && queryResult.translation">{{ queryResult.translation[0] }}</div>
+        <!-- 音标 -->
+        <div v-if="ukPhonetic">
+            英
+            <span>[{ukPhonetic}]</span> 美
+            <span>[{usPhonetic}]</span>
+        </div>
+        <!-- 基本释义 -->
+        <div v-if="explains">
+            <div v-for="(item, index) in explains" :key="index">
+                <div>{{ item }}</div>
+            </div>
+        </div>
+        <!-- 网络释义 -->
+        <div>网络释义</div>
+        <div v-for="(item, index) in web" :key="index">
+            <div>{{ item.key }} : {{ item.value ? item.value.join(',') : null }}</div>
+        </div>
+        <!-- 自定义输入框 -->
+        <div>
+            <div><el-input size="mini" type="text" /></div>
+            <div><el-input size="mini" type="text" /></div>
+        </div>
     </div>
 </template>
 
 <script>
 export default {
     name: 'DictPanel',
+    props: {
+        queryResult: {
+            type: Object,
+            default: null
+        },
+        queryWord: {
+            type: String,
+            default: ''
+        }
+    },
     data() {
         return {
-            word: 'abc'
+            ukPhonetic: '',
+            usPhonetic: '',
+            explains: '',
+            web: ''
         }
+    },
+    watch: {
+        queryResult(val) {
+            const { basic, web } = val
+            if (!basic) {
+                return
+            }
+            this.ukPhonetic = basic['uk-phonetic']
+            this.usPhonetic = basic['us-phonetic']
+            const explains = basic ? basic.explains : []
+            this.explains = explains
+            this.web = web
+        }
+    },
+    mounted() {
+        if (!this.queryResult) return
+        const { basic, web } = this.queryResult
+        if (!basic) {
+            return
+        }
+        this.ukPhonetic = basic['uk-phonetic']
+        this.usPhonetic = basic['us-phonetic']
+        const explains = basic ? basic.explains : []
+        this.explains = explains
+        this.web = web
     },
     methods: {}
 }

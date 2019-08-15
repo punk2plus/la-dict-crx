@@ -1,4 +1,4 @@
-import { Button, Dialog, TableColumn, Table, Message, MessageBox } from 'element-ui'
+import { Button, Dialog, TableColumn, Table, Message, MessageBox, Input } from 'element-ui'
 
 function install(Vue) {
     if (install.installed) {
@@ -9,6 +9,7 @@ function install(Vue) {
     Vue.component(Dialog.name, Dialog)
     Vue.component(TableColumn.name, TableColumn)
     Vue.component(Table.name, Table)
+    Vue.component(Input.name, Input)
 
     Vue.prototype.$msgbox = MessageBox
     Vue.prototype.$alert = MessageBox.alert
