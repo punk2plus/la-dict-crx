@@ -1,5 +1,10 @@
 <template>
-  <div>tabwq1ewq</div>
+  <div>tabwq1ewq
+
+   <a-button>Cancel</a-button>
+
+  </div>
+
 </template>
 <script>
 export default {

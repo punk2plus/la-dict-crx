@@ -1,10 +1,10 @@
 import Vue from "vue";
-import ElementConfig from "../../../config/uiConfig";
+// import ElementConfig from "../../../config/uiConfig";
 import App from "./App.vue";
 import Toasted from "vue-toasted";
 Vue.use(Toasted);
 
-Vue.use(ElementConfig);
+// Vue.use(ElementConfig);
 
 // 通过Chrome插件的API加载字体文件
 (function insertElementIcons() {
@@ -25,3 +25,7 @@ Vue.use(ElementConfig);
 
 const app = (Vue.prototype.$app = new Vue(App).$mount());
 document.body.appendChild(app.$el);
+
+
+
+
