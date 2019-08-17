@@ -3,6 +3,8 @@
 import './app/crx-hotreload'
 import request from "../../utils/request";
 import youdaoConfig from "../../../config/youdao";
+import settings from "../../../config/dict";
+
 import md5 from "md5";
 import { openDB } from 'idb/with-async-ittr.js';
 
@@ -12,6 +14,7 @@ window.chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
   if (message.type !== undefined && message.type === "selectText") {
     const queryWord = message.result.queryWord;
     fetchQueryWord(queryWord, sendResponse);
+    dictSetting()
   }
 
   if (message.type === 'playAudio') {
@@ -177,3 +180,13 @@ function getCusAddWordObj (data, times = 1) {
     flagExport: 0
   };
 }
+
+
+function dictSetting () {
+  window.chrome.storage.sync.get(null,function (items) {
+    //todo
+  });
+  
+}
+
+

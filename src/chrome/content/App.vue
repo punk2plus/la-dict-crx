@@ -27,40 +27,49 @@ export default {
     };
   },
   created() {
-    document.documentElement.addEventListener("mouseup", event => {
-      if (event.type === "selectstart") return;
-      // 获取选中内容
-      const selection = window.getSelection && window.getSelection();
-      // 过来为空的情况
-      if (!selection && selection.rangeCount === 0) return;
-      const selectText = selection.toString().trim();
-      if (!selectText) return;
-
-      if (this.timer) {
-        return;
-      }
-
-      this.timer = setTimeout(() => {
-        window.chrome.runtime.sendMessage(
-          {
-            type: "selectText",
-            result: {
-              queryWord: selectText
-            }
-          },
-          data => {
-            this.queryResult = data;
-            this.queryWord = selectText;
-
-            clearTimeout(this.timer);
-            this.timer = null;
-          }
-        );
-      }, 50);
-    });
+    this.initStorage()
+    this.initMouseup()
     this.listernerKeydown();
   },
   methods: {
+    initMouseup() {
+      document.documentElement.addEventListener("mouseup", event => {
+        if (event.type === "selectstart") return;
+        // 获取选中内容
+        const selection = window.getSelection && window.getSelection();
+        // 过来为空的情况
+        if (!selection && selection.rangeCount === 0) return;
+        const selectText = selection.toString().trim();
+        if (!selectText) return;
+
+        if (this.timer) {
+          return;
+        }
+
+        this.timer = setTimeout(() => {
+          window.chrome.runtime.sendMessage(
+            {
+              type: "selectText",
+              result: {
+                queryWord: selectText
+              }
+            },
+            data => {
+              this.queryResult = data;
+              this.queryWord = selectText;
+
+              clearTimeout(this.timer);
+              this.timer = null;
+            }
+          );
+        }, 50);
+      });
+    },
+    initStorage() {
+      window.chrome.storage.onChanged.addListener(function (changes) {
+        console.log('==changes=>>>', changes)
+      } )
+    },
     listernerKeydown() {
       document.documentElement.addEventListener("keydown", event => {
         const S_KEYCODE = 83;

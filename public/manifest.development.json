@@ -1,32 +1,39 @@
 {
-    "manifest_version": 2,
-    "name": "vue-extension",
-    "description": "a chrome extension with vue-cli3",
-    "version": "0.0.1",
-    "options_page": "options.html",
-    "browser_action": {
-        "default_popup": "popup.html"
-    },
-    "background": {
-        "page": "background.html"
-    },
-    "content_security_policy": "script-src 'self' 'unsafe-eval'; object-src 'self'",
-    "content_scripts": [{
-        "matches": [
-            "<all_urls>"
-        ],
-        "css": [
-            "css/content.css"
-        ],
-        "js": [
-            "js/content.js"
-        ],
-        "run_at": "document_end"
-    }],
-    "icons": {
-        "16": "img/icon-16.png",
-        "48": "img/icon-48.png",
-        "128": "img/icon-128.png"
-      },
-    "web_accessible_resources": ["fonts/*"]
+  "manifest_version": 2,
+  "name": "vue-extension",
+  "description": "a chrome extension with vue-cli3",
+  "version": "0.0.1",
+  "options_page": "options.html",
+  "browser_action": {
+    "default_popup": "popup.html"
+  },
+  "background": {
+    "page": "background.html"
+  },
+  "content_security_policy": "script-src 'self' 'unsafe-eval'; object-src 'self'",
+  "content_scripts": [
+    {
+      "matches": [
+        "<all_urls>"
+      ],
+      "css": [
+        "css/content.css"
+      ],
+      "js": [
+        "js/content.js"
+      ],
+      "run_at": "document_end"
+    }
+  ],
+  "icons": {
+    "16": "img/icon-16.png",
+    "48": "img/icon-48.png",
+    "128": "img/icon-128.png"
+  },
+  "permissions": [
+    "storage"
+  ],
+  "web_accessible_resources": [
+    "fonts/*"
+  ]
 }
