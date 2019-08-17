@@ -24,8 +24,10 @@
     </div>
     <!-- 自定义输入框 -->
     <div>
-      <div class="ll-dict-input"><el-input v-model="inputWordEn" size="mini" type="text" /></div>
-      <div class="ll-dict-input"><el-input v-model="inputWordCn" size="mini" type="text" /></div>
+      <div class="ll-dict-input">
+        <input v-model="inputWordEn" size="mini" type="text" /></div>
+      <div class="ll-dict-input"
+      ><input v-model="inputWordCn" size="mini" type="text" /></div>
     </div>
   </div>
 </template>
