@@ -1,4 +1,4 @@
-exports.config = {
+exports.dictSetting = {
   enable: true, // 划词使能
   autoAudio: false, //划词自动发音
   autoHide: false, //自动隐藏翻译结果
