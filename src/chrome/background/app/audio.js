@@ -1,5 +1,5 @@
 
-import youdaoConfig from "../../../../config/youdao";
+import youdaoConfig from "config/youdao";
 
 const voice = new Audio();
 

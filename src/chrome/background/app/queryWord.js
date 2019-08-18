@@ -1,14 +1,14 @@
 
 import md5 from "md5";
-import request from "../../../utils/request";
-import youdaoConfig from "../../../../config/youdao";
+import request from "@/utils/request";
+import youdaoConfig from "config/youdao";
 import { addWordObj, putWordObj, cusAddWordObj } from './model/wordObj';
 import { idbAdd, idbQuery, idbPut } from './idb';
 
 
 export async function addWordBook(message, sender, sendResponse) {
   const queryResult = message.result.queryResult;
-  const resultFlag = await saveToWordBook(queryResult.query);
+  const resultFlag = await saveToWordBook(queryResult, queryResult.query);
   if (resultFlag) {
     sendResponse('添加成功');
   } else {
@@ -17,8 +17,9 @@ export async function addWordBook(message, sender, sendResponse) {
 }
 
 export async function saveCustomerToWordBook(message, sender, sendResponse) {
+  const queryResult = message.result.queryResult;
   const en = message.result.en;
-  const resultFlag = await saveToWordBook(en);
+  const resultFlag = await saveToWordBook(queryResult, en);
   if (resultFlag) {
     sendResponse('添加成功');
   } else {
@@ -53,22 +54,7 @@ export async function fetchQueryWord(queryWord, sendResponse) {
     });
 }
 
-function getYoudaoUrl(queryWord) {
-  const salt = new Date().getTime();
-  const BASE_URL = youdaoConfig.baseUrl;
-  const appKey = youdaoConfig.appKey;
-  const appSecret = youdaoConfig.appSecret;
-
-  const genSecret = appKey + queryWord + salt + appSecret;
-  const sign = md5(genSecret);
-
-  return `${BASE_URL}?q=${queryWord}&from=auto&to=auto&appKey=${appKey}&salt=${salt}&sign=${sign}`;
-}
-
-
-
-
-export async function saveToWordBook(en) {
+export async function saveToWordBook(result, en) {
   const data = await idbQuery(en)
   if (data) {
     // 更新逻辑
@@ -82,5 +68,16 @@ export async function saveToWordBook(en) {
 }
 
 
+function getYoudaoUrl(queryWord) {
+  const salt = new Date().getTime();
+  const BASE_URL = youdaoConfig.baseUrl;
+  const appKey = youdaoConfig.appKey;
+  const appSecret = youdaoConfig.appSecret;
+
+  const genSecret = appKey + queryWord + salt + appSecret;
+  const sign = md5(genSecret);
+
+  return `${BASE_URL}?q=${queryWord}&from=auto&to=auto&appKey=${appKey}&salt=${salt}&sign=${sign}`;
+}
 
 

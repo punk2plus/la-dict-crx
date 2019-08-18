@@ -71,7 +71,14 @@ module.exports = {
     output: {
       filename: "js/[name].js"
     },
-    plugins: plugins
+    resolve: {
+      alias: {
+        '@': path.resolve('src'),
+        'config': path.resolve('config'),
+        'chrome': path.resolve('src/chrome')
+      }
+    },
+    plugins: plugins,
   },
   css: {
     extract: {

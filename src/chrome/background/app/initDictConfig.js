@@ -1,5 +1,5 @@
 
-import { dictSetting } from "../../../../config/dict";
+import { dictSetting } from "config/dict";
 
 function isNullObj(obj) {
   return Object.keys(obj).length === 0
