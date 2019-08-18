@@ -1,17 +1,23 @@
 <template>
   <div class="ll-dict-crx">
-    <DictPanel
-    ref="dictPanel"
+    {{ isShow }}
+    <div v-if="isShow">
+      <DictPanel
+      ref="dictPanel"
       v-if="queryWord && queryResult"
+      :dictSetting="dictSetting"
       :queryResult="queryResult"
       :queryWord="queryWord"
       @palyAudio="palyAudio"
     />
+    </div>
+    
   </div>
 </template>
 
 <script>
 import DictPanel from "../../components/DictPanel";
+import {  dictSetting } from "../../../config/dict";
 
 export default {
   name: "app",
@@ -24,6 +30,8 @@ export default {
       timer: null,
       queryResult: null,
       queryWord: "",
+      dictSetting: null,
+      isShow: true
     };
   },
   created() {
@@ -33,7 +41,10 @@ export default {
   },
   methods: {
     initMouseup() {
+      const self = this
       document.documentElement.addEventListener("mouseup", event => {
+        this.isShow = true
+        // debugger
         if (event.type === "selectstart") return;
         // 获取选中内容
         const selection = window.getSelection && window.getSelection();
@@ -46,6 +57,15 @@ export default {
           return;
         }
 
+
+        if(selectText === this.queryWord) {
+          return
+        }
+
+        if(!this.dictSetting) return
+
+        console.log(this.dictSetting)
+
         this.timer = setTimeout(() => {
           window.chrome.runtime.sendMessage(
             {
@@ -57,18 +77,31 @@ export default {
             data => {
               this.queryResult = data;
               this.queryWord = selectText;
-
+              this.showDictPanel()
               clearTimeout(this.timer);
               this.timer = null;
             }
           );
         }, 50);
+    
       });
     },
     initStorage() {
-      window.chrome.storage.onChanged.addListener(function (changes) {
-        console.log('==changes=>>>', changes)
-      } )
+      window.chrome.storage.sync.get(null, (items)=> {
+        console.log(items)
+        this.dictSetting = items;
+      });
+      window.chrome.storage.onChanged.addListener( (changes) => {
+        Object.keys(changes).forEach(function(key){
+          this.dictSetting[key] =  changes[key].newValue;
+        });
+      })
+    },
+    showDictPanel() {
+      const duration =  this.dictSetting.showDuration || 10
+      setTimeout(() => {
+        this.isShow = false
+      }, duration * 1000);
     },
     listernerKeydown() {
       document.documentElement.addEventListener("keydown", event => {

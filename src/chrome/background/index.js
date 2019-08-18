@@ -3,18 +3,18 @@
 import './app/crx-hotreload'
 import request from "../../utils/request";
 import youdaoConfig from "../../../config/youdao";
-import settings from "../../../config/dict";
+import { dictSetting } from "../../../config/dict";
 
 import md5 from "md5";
 import { openDB } from 'idb/with-async-ittr.js';
 
 const voice = new Audio();
 //监听 content 页面传来的值
+getDictSetting()
 window.chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
   if (message.type !== undefined && message.type === "selectText") {
     const queryWord = message.result.queryWord;
     fetchQueryWord(queryWord, sendResponse);
-    dictSetting()
   }
 
   if (message.type === 'playAudio') {
@@ -181,12 +181,20 @@ function getCusAddWordObj (data, times = 1) {
   };
 }
 
-
-function dictSetting () {
+function getDictSetting () {
   window.chrome.storage.sync.get(null,function (items) {
     //todo
+    if(isNullObj(items)) {
+      window.chrome.storage.sync.set(dictSetting);
+    }
+    if(!items) {
+      window.chrome.storage.sync.set(dictSetting);
+    }
   });
   
 }
 
+function isNullObj (obj) {
+  return Object.keys(obj).length === 0
+}
 
