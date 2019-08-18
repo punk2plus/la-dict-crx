@@ -2,41 +2,44 @@
 import md5 from "md5";
 import request from "../../../utils/request";
 import youdaoConfig from "../../../../config/youdao";
+import { addWordObj, putWordObj, cusAddWordObj } from './model/wordObj';
+import { idbAdd, idbQuery, idbPut } from './idb';
 
-export async function addWordBook (message, sender, sendResponse) {
+
+export async function addWordBook(message, sender, sendResponse) {
   const queryResult = message.result.queryResult;
   const resultFlag = await saveToWordBook(queryResult.query);
-  if (resultFlag) { 
-    sendResponse('添加成功'); 
+  if (resultFlag) {
+    sendResponse('添加成功');
   } else {
     sendResponse('添加失败');
   }
 }
 
-export async function saveCustomerToWordBook  (message, sender, sendResponse)  {
+export async function saveCustomerToWordBook(message, sender, sendResponse) {
   const en = message.result.en;
   const resultFlag = await saveToWordBook(en);
-  if (resultFlag) { 
-    sendResponse('添加成功'); 
+  if (resultFlag) {
+    sendResponse('添加成功');
   } else {
     sendResponse('添加失败');
   }
 }
 
-export async function saveCusToWordBook (en)  {
+export async function saveCusToWordBook(en) {
   const data = await idbQuery(en)
   if (data) {
     // 更新逻辑
-    const item = getPutWordObj(data)
+    const item = putWordObj(data)
     return await idbPut(item);
   } else {
     // 添加逻辑
-    const item = getCusAddWordObj(result)
+    const item = cusAddWordObj(result)
     return await idbAdd(item)
   }
-} 
+}
 
-export async function fetchQueryWord   (queryWord, sendResponse)  {
+export async function fetchQueryWord(queryWord, sendResponse) {
   request({
     url: getYoudaoUrl(queryWord),
     method: "get",
@@ -65,15 +68,15 @@ function getYoudaoUrl(queryWord) {
 
 
 
-export async function  saveToWordBook(en) {
+export async function saveToWordBook(en) {
   const data = await idbQuery(en)
   if (data) {
     // 更新逻辑
-    const item = getPutWordObj(data)
+    const item = putWordObj(data)
     return await idbPut(item);
   } else {
     // 添加逻辑
-    const item = getAddWordObj(result)
+    const item = addWordObj(result)
     return await idbAdd(item)
   }
 }

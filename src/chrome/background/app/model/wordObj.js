@@ -1,5 +1,4 @@
-// 添加单词模型
-function getAddWordObj (data, times = 1) {
+export function addWordObj(data, times = 1) {
   return {
     cn: data.translation[0],
     en: data.query,
@@ -10,14 +9,14 @@ function getAddWordObj (data, times = 1) {
   };
 }
 
-function getPutWordObj (data) {
+export function putWordObj(data) {
   data.updateTime = new Date().getTime()
   data.times = data.times + 3
   data.flagExport = 0
   return data
 }
 
-function getCusAddWordObj (data, times = 1) {
+export function cusAddWordObj(data, times = 1) {
   return {
     cn: data.cn,
     en: data.cn,
