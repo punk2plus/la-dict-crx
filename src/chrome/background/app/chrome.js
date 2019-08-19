@@ -23,8 +23,8 @@ export function initChromeEvent() {
       const queryResult = message.result.queryResult;
       const resultFlag = saveCustomerToWordBook(queryResult);
 
-      if (resultFlag) { sendResponse('添加成功'); } else {
-        sendResponse('添加失败');
+      if (resultFlag) { sendResponse('自定义添加成功'); } else {
+        sendResponse('自定义添加失败');
       }
     }
     return true;

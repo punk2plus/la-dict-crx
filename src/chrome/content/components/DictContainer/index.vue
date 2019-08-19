@@ -1,5 +1,5 @@
 <template>
-  <div v-if="isShow" class="ll-dict-crx-content">
+  <div v-if="isShow">
     <DictPanel
       v-if="dictModel"
       :dictSetting="dictSetting"
@@ -63,9 +63,6 @@ export default {
     initMouseup() {
       const self = this;
       document.documentElement.addEventListener("mouseup", event => {
-        // if (!this.dictSetting.enbale) return;
-
-        // debugger
         if (event.type === "selectstart") return;
         // 获取选中内容
         const selection = window.getSelection && window.getSelection();
@@ -79,6 +76,9 @@ export default {
         }
 
         if (!this.dictSetting) return;
+
+        // 逻辑待整理
+        this.mouseupCheck()
 
         window.chrome.runtime.sendMessage(
           {
@@ -94,6 +94,9 @@ export default {
           }
         );
       });
+    },
+    mouseupCheck() {
+
     },
     handleQueryWordResult(result) {
       const str = JSON.stringify(dictObj);
@@ -127,7 +130,6 @@ export default {
           return this.toast("enable");
         }
         if (event.keyCode === C_KEYCODE && event.altKey) {
-          // save
           return this.addWordBook();
         }
         if (event.keyCode === V_KEYCODE && event.altKey) {
@@ -192,27 +194,10 @@ export default {
           }
         },
         text => {
-          // this.setState({
-          //   tip: text
-          // });
-          this.toast("自定义输入保存成功");
-
-          // setTimeout(() => {
-          //   this.setState({
-          //     showInput: false,
-          //     inputWordEn: "",
-          //     inputWordCn: ""
-          //   });
-          // }, 5000);
+          this.toast("text");
         }
       );
     }
   }
 };
 </script>
-
-<style lang="less">
-.ll-dict-crx-content {
-  font-size: 12px;
-}
-</style>
