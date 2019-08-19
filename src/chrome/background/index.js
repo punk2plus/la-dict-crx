@@ -1,5 +1,5 @@
 // 代码来源：https://github.com/xpl/crx-hotreload/edit/master/hot-reload.js
-import './app/crx-hotreload'
+import './app/crx-hotreload' // 文件修改刷新页面
 import { initChromeEvent } from "./app/chrome";
 import { initDictConfig } from "./app/initDictConfig";
 
